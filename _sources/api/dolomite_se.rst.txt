@@ -1,0 +1,29 @@
+dolomite\_se package
+====================
+
+Submodules
+----------
+
+dolomite\_se.load\_summarized\_experiment module
+------------------------------------------------
+
+.. automodule:: dolomite_se.load_summarized_experiment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_se.stage\_summarized\_experiment module
+-------------------------------------------------
+
+.. automodule:: dolomite_se.stage_summarized_experiment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: dolomite_se
+   :members:
+   :undoc-members:
+   :show-inheritance:
