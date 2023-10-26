@@ -71,3 +71,19 @@ def test_stage_summarized_experiment_with_dimdata():
     assert isinstance(roundtrip, summarizedexperiment.SummarizedExperiment)
     assert se.row_data.row_names == roundtrip.row_data.row_names
     assert se.col_data.row_names == roundtrip.col_data.row_names
+
+
+def test_stage_summarized_experiment_with_other_meta():
+    x = numpy.random.rand(1000, 200)
+    se = summarizedexperiment.SummarizedExperiment(
+        assays={ "counts": x },
+        metadata={"YAY":2, "FOO":'a'}
+    )
+
+    dir = mkdtemp()
+    info = stage_object(se, dir, "se")
+    assert "other_data" in info["summarized_experiment"]
+    write_metadata(info, dir)
+
+    roundtrip = load_object(info, dir)
+    assert roundtrip.metadata == se.metadata

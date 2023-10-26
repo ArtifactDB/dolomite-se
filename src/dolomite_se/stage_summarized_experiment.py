@@ -61,7 +61,7 @@ def stage_summarized_experiment(
 
     if x.row_data.row_names is not None or x.row_data.shape[1] > 0:
         try:
-            rd_meta = stage_object(x.row_data, dir, path + "/row_data", **data_frame_args)
+            rd_meta = stage_object(x.row_data, dir, path + "/row_data", is_child=True, **data_frame_args)
             rd_stub = write_metadata(rd_meta, dir)
         except Exception as ex:
             raise ValueError("failed to stage row data for a " + str(type(x)) + "; " + str(ex))
@@ -69,11 +69,19 @@ def stage_summarized_experiment(
 
     if x.col_data.row_names is not None or x.col_data.shape[1] > 0:
         try:
-            cd_meta = stage_object(x.col_data, dir, path + "/column_data", **data_frame_args)
+            cd_meta = stage_object(x.col_data, dir, path + "/column_data", is_child=True, **data_frame_args)
             cd_stub = write_metadata(cd_meta, dir)
         except Exception as ex:
-            raise ValueError("failed to stage row data for a " + str(type(x)) + "; " + str(ex))
+            raise ValueError("failed to stage column data for a " + str(type(x)) + "; " + str(ex))
         se_meta["column_data"] = { "resource": cd_stub }
+
+    if x.metadata is not None and len(x.metadata):
+        try:
+            o_meta = stage_object(x.metadata, dir, path + "/other_data", is_child=True)
+            o_stub = write_metadata(o_meta, dir)
+        except Exception as ex:
+            raise ValueError("failed to stage other metadata for a " + str(type(x)) + "; " + str(ex))
+        se_meta["other_data"] = { "resource": o_stub }
 
     return {
         "$schema": "summarized_experiment/v1.json",

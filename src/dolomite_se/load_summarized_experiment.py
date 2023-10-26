@@ -52,8 +52,17 @@ def load_summarized_experiment(meta: dict[str, Any], project, **kwargs) -> Summa
         except Exception as ex:
             raise ValueError("failed to load assay '" + curname + "' from '" + meta["$schema"] + "'; " + str(ex))
 
+    other_meta = None 
+    if "other_data" in se_meta:
+        try:
+            child_meta = acquire_metadata(project, se_meta["other_data"]["resource"]["path"])
+            other_meta = load_object(child_meta, project)
+        except Exception as ex:
+            raise ValueError("failed to load other metadata from '" + meta["$schema"] + "'; " + str(ex))
+
     return SummarizedExperiment(
         assays=assays,
         row_data=row_data,
-        col_data=col_data
+        col_data=col_data,
+        metadata=other_meta,
     )
