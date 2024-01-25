@@ -15,5 +15,5 @@ except PackageNotFoundError:  # pragma: no cover
 finally:
     del version, PackageNotFoundError
 
-from .stage_summarized_experiment import stage_summarized_experiment
-from .load_summarized_experiment import load_summarized_experiment
+from .read_summarized_experiment import read_summarized_experiment
+from .save_summarized_experiment import save_summarized_experiment
