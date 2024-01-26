@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>dolomite_se.utils - dolomite-se 0.1.0a0 documentation</title>
+        <title>dolomite_se.utils - dolomite-se 0.1.0a2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">dolomite-se 0.1.0a0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">dolomite-se 0.1.0a2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +145,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">dolomite-se 0.1.0a0 documentation</span>
+  <span class="sidebar-brand-text">dolomite-se 0.1.0a2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -227,26 +227,27 @@
 <span class="sd">            assays.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># save assays</span>
-    <span class="n">_assays_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;assays&quot;</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">)</span>
-
     <span class="n">_assay_names</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">get_assay_names</span><span class="p">()</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="s2">&quot;names.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">_assay_names</span><span class="p">,</span> <span class="n">handle</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_assay_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">_assays_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;assays&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">_aidx</span><span class="p">,</span> <span class="n">_aname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_assay_names</span><span class="p">):</span>
-        <span class="n">_assay_save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">_aidx</span><span class="p">))</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">dl</span><span class="o">.</span><span class="n">save_object</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">assays</span><span class="p">[</span><span class="n">_aname</span><span class="p">],</span> <span class="n">path</span><span class="o">=</span><span class="n">_assay_save_path</span><span class="p">,</span> <span class="o">**</span><span class="n">assay_args</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;failed to stage assay &#39;&quot;</span>
-                <span class="o">+</span> <span class="n">_aname</span>
-                <span class="o">+</span> <span class="s2">&quot;&#39; for &quot;</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-                <span class="o">+</span> <span class="s2">&quot;; &quot;</span>
-                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-            <span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="s2">&quot;names.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">_assay_names</span><span class="p">,</span> <span class="n">handle</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_aidx</span><span class="p">,</span> <span class="n">_aname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_assay_names</span><span class="p">):</span>
+            <span class="n">_assay_save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">_aidx</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dl</span><span class="o">.</span><span class="n">save_object</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">assays</span><span class="p">[</span><span class="n">_aname</span><span class="p">],</span> <span class="n">path</span><span class="o">=</span><span class="n">_assay_save_path</span><span class="p">,</span> <span class="o">**</span><span class="n">assay_args</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;failed to stage assay &#39;&quot;</span>
+                    <span class="o">+</span> <span class="n">_aname</span>
+                    <span class="o">+</span> <span class="s2">&quot;&#39; for &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+                    <span class="o">+</span> <span class="s2">&quot;; &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+                <span class="p">)</span>
 
     <span class="c1"># save row data</span>
     <span class="n">_rdata</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">get_row_data</span><span class="p">()</span>
@@ -290,20 +291,21 @@
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">_cdata_path</span><span class="p">):</span>
         <span class="n">_column_data</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">read_object</span><span class="p">(</span><span class="n">_cdata_path</span><span class="p">)</span>
 
-    <span class="n">_assays_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;assays&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="s2">&quot;names.json&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
-        <span class="n">_assay_names</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
-
     <span class="n">_assays</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">_aidx</span><span class="p">,</span> <span class="n">_aname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_assay_names</span><span class="p">):</span>
-        <span class="n">_assay_read_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">_aidx</span><span class="p">))</span>
+    <span class="n">_assays_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;assays&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="s2">&quot;names.json&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">_assay_names</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">_assays</span><span class="p">[</span><span class="n">_aname</span><span class="p">]</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">read_object</span><span class="p">(</span><span class="n">_assay_read_path</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;failed to load assay &#39;</span><span class="si">{</span><span class="n">_aname</span><span class="si">}</span><span class="s2">&#39; from &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">_aidx</span><span class="p">,</span> <span class="n">_aname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_assay_names</span><span class="p">):</span>
+            <span class="n">_assay_read_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_assays_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">_aidx</span><span class="p">))</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_assays</span><span class="p">[</span><span class="n">_aname</span><span class="p">]</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">read_object</span><span class="p">(</span><span class="n">_assay_read_path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;failed to load assay &#39;</span><span class="si">{</span><span class="n">_aname</span><span class="si">}</span><span class="s2">&#39; from &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+                <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">_row_data</span><span class="p">,</span> <span class="n">_column_data</span><span class="p">,</span> <span class="n">_assays</span></div>
 
@@ -339,7 +341,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=edcd63a1"></script>
+</div><script src="../../_static/documentation_options.js?v=7e4d6dd2"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
