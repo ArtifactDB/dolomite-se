@@ -3,7 +3,7 @@ import os
 import dolomite_base as dl
 from summarizedexperiment import SummarizedExperiment
 
-from ._utils import _save_common_se_props
+from .utils import save_common_se_props
 
 
 @dl.save_object.register
@@ -57,7 +57,7 @@ def save_summarized_experiment(
             + " } }"
         )
 
-    _save_common_se_props(
+    save_common_se_props(
         x, path, data_frame_args=data_frame_args, assay_args=assay_args
     )
 

@@ -4,7 +4,7 @@ import dolomite_base as dl
 from dolomite_base.read_object import read_object_registry
 from summarizedexperiment import RangedSummarizedExperiment
 
-from ._utils import _read_common_se_props
+from .utils import read_common_se_props
 
 read_object_registry[
     "ranged_summarized_experiment"
@@ -37,7 +37,7 @@ def read_ranged_summarized_experiment(
         with file-backed arrays in the assays.
     """
 
-    _row_data, _column_data, _assays = _read_common_se_props(path)
+    _row_data, _column_data, _assays = read_common_se_props(path)
 
     rse = RangedSummarizedExperiment(
         assays=_assays,

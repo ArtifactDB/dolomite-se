@@ -4,7 +4,27 @@ import os
 import dolomite_base as dl
 
 
-def _save_common_se_props(x, path, data_frame_args, assay_args):
+def save_common_se_props(x, path, data_frame_args, assay_args):
+    """Save common :py:class:`~summarizedexperiment.SummarizedExperiment.SummarizedExperiment`
+    properties to the specified path.
+
+    Mostly for reuse in derivatives of SE.
+
+    Args:
+        x:
+            Object to be staged.
+
+        path:
+            Path to a directory in which to save ``x``.
+
+        data_frame_args:
+            Further arguments to pass to the ``save_object`` method for the
+            row/column data.
+
+        assay_args:
+            Further arguments to pass to the ``save_object`` method for the
+            assays.
+    """
     # save assays
     _assays_path = os.path.join(path, "assays")
     os.mkdir(_assays_path)
@@ -44,7 +64,18 @@ def _save_common_se_props(x, path, data_frame_args, assay_args):
         dl.save_object(_meta, path=os.path.join(path, "other_data"))
 
 
-def _read_common_se_props(path):
+def read_common_se_props(path):
+    """Read shared properties from a directory containing
+    :py:class:`~summarizedexperiment.SummarizedExperiment.SummarizedExperiment` or
+    its derivatives.
+
+    Args:
+        path:
+            Path to the directory containing the object.
+
+    Returns:
+        A tuple containing row data, column data and the assays.
+    """
     _row_data = None
     _rdata_path = os.path.join(path, "row_data")
     if os.path.exists(_rdata_path):

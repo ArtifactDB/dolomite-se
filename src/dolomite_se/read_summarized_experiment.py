@@ -1,11 +1,10 @@
-import json
 import os
 
 import dolomite_base as dl
 from dolomite_base.read_object import read_object_registry
 from summarizedexperiment import SummarizedExperiment
 
-from ._utils import _read_common_se_props
+from .utils import read_common_se_props
 
 read_object_registry["summarized_experiment"] = "dolomite_se.read_summarized_experiment"
 
@@ -36,7 +35,7 @@ def read_summarized_experiment(
         with file-backed arrays in the assays.
     """
 
-    _row_data, _column_data, _assays = _read_common_se_props(path)
+    _row_data, _column_data, _assays = read_common_se_props(path)
 
     se = SummarizedExperiment(
         assays=_assays, row_data=_row_data, column_data=_column_data
