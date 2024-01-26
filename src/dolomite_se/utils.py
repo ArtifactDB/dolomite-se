@@ -26,26 +26,27 @@ def save_common_se_props(x, path, data_frame_args, assay_args):
             assays.
     """
     # save assays
-    _assays_path = os.path.join(path, "assays")
-    os.mkdir(_assays_path)
-
     _assay_names = x.get_assay_names()
-    with open(os.path.join(_assays_path, "names.json"), "w") as handle:
-        json.dump(_assay_names, handle)
+    if len(_assay_names) > 0:
+        _assays_path = os.path.join(path, "assays")
+        os.mkdir(_assays_path)
 
-    for _aidx, _aname in enumerate(_assay_names):
-        _assay_save_path = os.path.join(_assays_path, str(_aidx))
-        try:
-            dl.save_object(x.assays[_aname], path=_assay_save_path, **assay_args)
-        except Exception as ex:
-            raise RuntimeError(
-                "failed to stage assay '"
-                + _aname
-                + "' for "
-                + str(type(x))
-                + "; "
-                + str(ex)
-            )
+        with open(os.path.join(_assays_path, "names.json"), "w") as handle:
+            json.dump(_assay_names, handle)
+
+        for _aidx, _aname in enumerate(_assay_names):
+            _assay_save_path = os.path.join(_assays_path, str(_aidx))
+            try:
+                dl.save_object(x.assays[_aname], path=_assay_save_path, **assay_args)
+            except Exception as ex:
+                raise RuntimeError(
+                    "failed to stage assay '"
+                    + _aname
+                    + "' for "
+                    + str(type(x))
+                    + "; "
+                    + str(ex)
+                )
 
     # save row data
     _rdata = x.get_row_data()
@@ -86,19 +87,20 @@ def read_common_se_props(path):
     if os.path.exists(_cdata_path):
         _column_data = dl.read_object(_cdata_path)
 
-    _assays_path = os.path.join(path, "assays")
-    with open(os.path.join(_assays_path, "names.json"), "r") as handle:
-        _assay_names = json.load(handle)
-
     _assays = {}
-    for _aidx, _aname in enumerate(_assay_names):
-        _assay_read_path = os.path.join(_assays_path, str(_aidx))
+    _assays_path = os.path.join(path, "assays")
+    if os.path.exists(_assays_path):
+        with open(os.path.join(_assays_path, "names.json"), "r") as handle:
+            _assay_names = json.load(handle)
 
-        try:
-            _assays[_aname] = dl.read_object(_assay_read_path)
-        except Exception as ex:
-            raise RuntimeError(
-                f"failed to load assay '{_aname}' from '{path}'; " + str(ex)
-            )
+        for _aidx, _aname in enumerate(_assay_names):
+            _assay_read_path = os.path.join(_assays_path, str(_aidx))
+
+            try:
+                _assays[_aname] = dl.read_object(_assay_read_path)
+            except Exception as ex:
+                raise RuntimeError(
+                    f"failed to load assay '{_aname}' from '{path}'; " + str(ex)
+                )
 
     return _row_data, _column_data, _assays
