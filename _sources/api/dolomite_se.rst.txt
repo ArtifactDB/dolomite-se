@@ -4,18 +4,42 @@ dolomite\_se package
 Submodules
 ----------
 
-dolomite\_se.load\_summarized\_experiment module
-------------------------------------------------
+dolomite\_se.read\_ranged\_summarized\_experiment module
+--------------------------------------------------------
 
-.. automodule:: dolomite_se.load_summarized_experiment
+.. automodule:: dolomite_se.read_ranged_summarized_experiment
    :members:
    :undoc-members:
    :show-inheritance:
 
-dolomite\_se.stage\_summarized\_experiment module
--------------------------------------------------
+dolomite\_se.read\_summarized\_experiment module
+------------------------------------------------
 
-.. automodule:: dolomite_se.stage_summarized_experiment
+.. automodule:: dolomite_se.read_summarized_experiment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_se.save\_ranged\_summarized\_experiment module
+--------------------------------------------------------
+
+.. automodule:: dolomite_se.save_ranged_summarized_experiment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_se.save\_summarized\_experiment module
+------------------------------------------------
+
+.. automodule:: dolomite_se.save_summarized_experiment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_se.utils module
+-------------------------
+
+.. automodule:: dolomite_se.utils
    :members:
    :undoc-members:
    :show-inheritance:

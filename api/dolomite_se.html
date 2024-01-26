@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="dolomite_se" href="modules.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>dolomite_se package - dolomite-se 0.0.post1.dev1+gdea7297 documentation</title>
+        <title>dolomite_se package - dolomite-se 0.1.0a0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">dolomite-se 0.0.post1.dev1+gdea7297 documentation</div></a>
+      <a href="../index.html"><div class="brand">dolomite-se 0.1.0a0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">dolomite-se 0.0.post1.dev1+gdea7297 documentation</span>
+  <span class="sidebar-brand-text">dolomite-se 0.1.0a0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -203,29 +203,56 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-dolomite_se.load_summarized_experiment">
-<span id="dolomite-se-load-summarized-experiment-module"></span><h2>dolomite_se.load_summarized_experiment module<a class="headerlink" href="#module-dolomite_se.load_summarized_experiment" title="Link to this heading">#</a></h2>
+<section id="module-dolomite_se.read_ranged_summarized_experiment">
+<span id="dolomite-se-read-ranged-summarized-experiment-module"></span><h2>dolomite_se.read_ranged_summarized_experiment module<a class="headerlink" href="#module-dolomite_se.read_ranged_summarized_experiment" title="Link to this heading">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="dolomite_se.load_summarized_experiment.load_summarized_experiment">
-<span class="sig-prename descclassname"><span class="pre">dolomite_se.load_summarized_experiment.</span></span><span class="sig-name descname"><span class="pre">load_summarized_experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/load_summarized_experiment.html#load_summarized_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.load_summarized_experiment.load_summarized_experiment" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="dolomite_se.read_ranged_summarized_experiment.read_ranged_summarized_experiment">
+<span class="sig-prename descclassname"><span class="pre">dolomite_se.read_ranged_summarized_experiment.</span></span><span class="sig-name descname"><span class="pre">read_ranged_summarized_experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/read_ranged_summarized_experiment.html#read_ranged_summarized_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.read_ranged_summarized_experiment.read_ranged_summarized_experiment" title="Link to this definition">#</a></dt>
 <dd><p>Load a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code>
-from its on-disk representation. This method should generally not be
-called directly but instead be invoked by
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">load_object()</span></code>.</p>
+<code class="xref py py-class docutils literal notranslate"><span class="pre">RangedSummarizedExperiment</span></code>
+from its on-disk representation.</p>
+<p>This method should generally not be called directly but instead be invoked by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">read_object()</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>meta</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – Metadata for this object.</p></li>
-<li><p><strong>project</strong> – Value specifying the project of interest. This is most
-typically a string containing a file path to a staging directory
-but may also be an application-specific object that works with
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">acquire_file()</span></code>.</p></li>
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory containing the object.</p></li>
+<li><p><strong>metadata</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span>) – Metadata for the object.</p></li>
 <li><p><strong>kwargs</strong> – Further arguments, ignored.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">RangedSummarizedExperiment</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A
+<code class="xref py py-class docutils literal notranslate"><span class="pre">RangedSummarizedExperiment</span></code>
+with file-backed arrays in the assays.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dolomite_se.read_summarized_experiment">
+<span id="dolomite-se-read-summarized-experiment-module"></span><h2>dolomite_se.read_summarized_experiment module<a class="headerlink" href="#module-dolomite_se.read_summarized_experiment" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_se.read_summarized_experiment.read_summarized_experiment">
+<span class="sig-prename descclassname"><span class="pre">dolomite_se.read_summarized_experiment.</span></span><span class="sig-name descname"><span class="pre">read_summarized_experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/read_summarized_experiment.html#read_summarized_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.read_summarized_experiment.read_summarized_experiment" title="Link to this definition">#</a></dt>
+<dd><p>Load a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code>
+from its on-disk representation.</p>
+<p>This method should generally not be called directly but instead be invoked by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">read_object()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory containing the object.</p></li>
+<li><p><strong>metadata</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span>) – Metadata for the object.</p></li>
+<li><p><strong>kwargs</strong> – Further arguments, ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A
@@ -236,35 +263,98 @@ with file-backed arrays in the assays.</p>
 </dd></dl>
 
 </section>
-<section id="module-dolomite_se.stage_summarized_experiment">
-<span id="dolomite-se-stage-summarized-experiment-module"></span><h2>dolomite_se.stage_summarized_experiment module<a class="headerlink" href="#module-dolomite_se.stage_summarized_experiment" title="Link to this heading">#</a></h2>
+<section id="module-dolomite_se.save_ranged_summarized_experiment">
+<span id="dolomite-se-save-ranged-summarized-experiment-module"></span><h2>dolomite_se.save_ranged_summarized_experiment module<a class="headerlink" href="#module-dolomite_se.save_ranged_summarized_experiment" title="Link to this heading">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="dolomite_se.stage_summarized_experiment.stage_summarized_experiment">
-<span class="sig-prename descclassname"><span class="pre">dolomite_se.stage_summarized_experiment.</span></span><span class="sig-name descname"><span class="pre">stage_summarized_experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_child</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_frame_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assay_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/stage_summarized_experiment.html#stage_summarized_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.stage_summarized_experiment.stage_summarized_experiment" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="dolomite_se.save_ranged_summarized_experiment.save_ranged_summarized_experiment">
+<span class="sig-prename descclassname"><span class="pre">dolomite_se.save_ranged_summarized_experiment.</span></span><span class="sig-name descname"><span class="pre">save_ranged_summarized_experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_frame_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assay_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/save_ranged_summarized_experiment.html#save_ranged_summarized_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.save_ranged_summarized_experiment.save_ranged_summarized_experiment" title="Link to this definition">#</a></dt>
 <dd><p>Method for saving
 <code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code>
-objects to file, see
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">stage_object()</span></code> for details.</p>
+objects to their corresponding file representations, see
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">save_object()</span></code> for details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code>) – <code class="docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code> to be saved.</p></li>
-<li><p><strong>dir</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Staging directory.</p></li>
-<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Relative path inside <code class="docutils literal notranslate"><span class="pre">dir</span></code> to save the object.</p></li>
-<li><p><strong>is_child</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Is <code class="docutils literal notranslate"><span class="pre">x</span></code> a child of another object?</p></li>
-<li><p><strong>data_frame_args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Further arguemnts to pass to the <code class="docutils literal notranslate"><span class="pre">stage_object</span></code> method for the
+<li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">RangedSummarizedExperiment</span></code></span>) – Object to be staged.</p></li>
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to a directory in which to save <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>data_frame_args</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span>) – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for the
 row/column data.</p></li>
-<li><p><strong>assay_args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Further arguemnts to pass to the <code class="docutils literal notranslate"><span class="pre">stage_object</span></code> method for the
+<li><p><strong>assay_args</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span>) – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for the
 assays.</p></li>
 <li><p><strong>kwargs</strong> – Further arguments, ignored.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Metadata that can be edited by calling methods and then saved with
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Metadata that can be edited by calling methods and then saved with
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">write_metadata()</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dolomite_se.save_summarized_experiment">
+<span id="dolomite-se-save-summarized-experiment-module"></span><h2>dolomite_se.save_summarized_experiment module<a class="headerlink" href="#module-dolomite_se.save_summarized_experiment" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_se.save_summarized_experiment.save_summarized_experiment">
+<span class="sig-prename descclassname"><span class="pre">dolomite_se.save_summarized_experiment.</span></span><span class="sig-name descname"><span class="pre">save_summarized_experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_frame_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assay_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/save_summarized_experiment.html#save_summarized_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.save_summarized_experiment.save_summarized_experiment" title="Link to this definition">#</a></dt>
+<dd><p>Method for saving
+<code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code>
+objects to their corresponding file representations, see
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">save_object()</span></code> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code></span>) – Object to be staged.</p></li>
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to a directory in which to save <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>data_frame_args</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span>) – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for the
+row/column data.</p></li>
+<li><p><strong>assay_args</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span>) – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for the
+assays.</p></li>
+<li><p><strong>kwargs</strong> – Further arguments, ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Metadata that can be edited by calling methods and then saved with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">write_metadata()</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dolomite_se.utils">
+<span id="dolomite-se-utils-module"></span><h2>dolomite_se.utils module<a class="headerlink" href="#module-dolomite_se.utils" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_se.utils.read_common_se_props">
+<span class="sig-prename descclassname"><span class="pre">dolomite_se.utils.</span></span><span class="sig-name descname"><span class="pre">read_common_se_props</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/utils.html#read_common_se_props"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.utils.read_common_se_props" title="Link to this definition">#</a></dt>
+<dd><p>Read shared properties from a directory containing
+<code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code> or
+its derivatives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to the directory containing the object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing row data, column data and the assays.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_se.utils.save_common_se_props">
+<span class="sig-prename descclassname"><span class="pre">dolomite_se.utils.</span></span><span class="sig-name descname"><span class="pre">save_common_se_props</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_frame_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assay_args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_se/utils.html#save_common_se_props"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_se.utils.save_common_se_props" title="Link to this definition">#</a></dt>
+<dd><p>Save common <code class="xref py py-class docutils literal notranslate"><span class="pre">SummarizedExperiment</span></code>
+properties to the specified path.</p>
+<p>Mostly for reuse in derivatives of SE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Object to be staged.</p></li>
+<li><p><strong>path</strong> – Path to a directory in which to save <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>data_frame_args</strong> – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for the
+row/column data.</p></li>
+<li><p><strong>assay_args</strong> – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for the
+assays.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -324,12 +414,25 @@ assays.</p></li>
             <ul>
 <li><a class="reference internal" href="#">dolomite_se package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-dolomite_se.load_summarized_experiment">dolomite_se.load_summarized_experiment module</a><ul>
-<li><a class="reference internal" href="#dolomite_se.load_summarized_experiment.load_summarized_experiment"><code class="docutils literal notranslate"><span class="pre">load_summarized_experiment()</span></code></a></li>
+<li><a class="reference internal" href="#module-dolomite_se.read_ranged_summarized_experiment">dolomite_se.read_ranged_summarized_experiment module</a><ul>
+<li><a class="reference internal" href="#dolomite_se.read_ranged_summarized_experiment.read_ranged_summarized_experiment"><code class="docutils literal notranslate"><span class="pre">read_ranged_summarized_experiment()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-dolomite_se.stage_summarized_experiment">dolomite_se.stage_summarized_experiment module</a><ul>
-<li><a class="reference internal" href="#dolomite_se.stage_summarized_experiment.stage_summarized_experiment"><code class="docutils literal notranslate"><span class="pre">stage_summarized_experiment()</span></code></a></li>
+<li><a class="reference internal" href="#module-dolomite_se.read_summarized_experiment">dolomite_se.read_summarized_experiment module</a><ul>
+<li><a class="reference internal" href="#dolomite_se.read_summarized_experiment.read_summarized_experiment"><code class="docutils literal notranslate"><span class="pre">read_summarized_experiment()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-dolomite_se.save_ranged_summarized_experiment">dolomite_se.save_ranged_summarized_experiment module</a><ul>
+<li><a class="reference internal" href="#dolomite_se.save_ranged_summarized_experiment.save_ranged_summarized_experiment"><code class="docutils literal notranslate"><span class="pre">save_ranged_summarized_experiment()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-dolomite_se.save_summarized_experiment">dolomite_se.save_summarized_experiment module</a><ul>
+<li><a class="reference internal" href="#dolomite_se.save_summarized_experiment.save_summarized_experiment"><code class="docutils literal notranslate"><span class="pre">save_summarized_experiment()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-dolomite_se.utils">dolomite_se.utils module</a><ul>
+<li><a class="reference internal" href="#dolomite_se.utils.read_common_se_props"><code class="docutils literal notranslate"><span class="pre">read_common_se_props()</span></code></a></li>
+<li><a class="reference internal" href="#dolomite_se.utils.save_common_se_props"><code class="docutils literal notranslate"><span class="pre">save_common_se_props()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-dolomite_se">Module contents</a></li>
@@ -344,7 +447,7 @@ assays.</p></li>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=1a7223ce"></script>
+</div><script src="../_static/documentation_options.js?v=edcd63a1"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

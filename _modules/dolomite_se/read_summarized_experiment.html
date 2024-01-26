@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>dolomite_se.load_summarized_experiment - dolomite-se 0.0.post1.dev1+gdea7297 documentation</title>
+        <title>dolomite_se.read_summarized_experiment - dolomite-se 0.1.0a0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">dolomite-se 0.0.post1.dev1+gdea7297 documentation</div></a>
+      <a href="../../index.html"><div class="brand">dolomite-se 0.1.0a0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +145,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">dolomite-se 0.0.post1.dev1+gdea7297 documentation</span>
+  <span class="sidebar-brand-text">dolomite-se 0.1.0a0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -196,77 +196,58 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for dolomite_se.load_summarized_experiment</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+          <h1>Source code for dolomite_se.read_summarized_experiment</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">dolomite_base</span> <span class="k">as</span> <span class="nn">dl</span>
+<span class="kn">from</span> <span class="nn">dolomite_base.read_object</span> <span class="kn">import</span> <span class="n">read_object_registry</span>
 <span class="kn">from</span> <span class="nn">summarizedexperiment</span> <span class="kn">import</span> <span class="n">SummarizedExperiment</span>
-<span class="kn">from</span> <span class="nn">dolomite_base</span> <span class="kn">import</span> <span class="n">load_object</span><span class="p">,</span> <span class="n">acquire_metadata</span>
+
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">read_common_se_props</span>
+
+<span class="n">read_object_registry</span><span class="p">[</span><span class="s2">&quot;summarized_experiment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;dolomite_se.read_summarized_experiment&quot;</span>
 
 
-<div class="viewcode-block" id="load_summarized_experiment">
-<a class="viewcode-back" href="../../api/dolomite_se.html#dolomite_se.load_summarized_experiment.load_summarized_experiment">[docs]</a>
-<span class="k">def</span> <span class="nf">load_summarized_experiment</span><span class="p">(</span><span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">project</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SummarizedExperiment</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a </span>
+<div class="viewcode-block" id="read_summarized_experiment">
+<a class="viewcode-back" href="../../api/dolomite_se.html#dolomite_se.read_summarized_experiment.read_summarized_experiment">[docs]</a>
+<span class="k">def</span> <span class="nf">read_summarized_experiment</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SummarizedExperiment</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a</span>
 <span class="sd">    :py:class:`~summarizedexperiment.SummarizedExperiment.SummarizedExperiment`</span>
-<span class="sd">    from its on-disk representation. This method should generally not be </span>
-<span class="sd">    called directly but instead be invoked by </span>
-<span class="sd">    :py:meth:`~dolomite_base.load_object.load_object`.</span>
+<span class="sd">    from its on-disk representation.</span>
+
+<span class="sd">    This method should generally not be called directly but instead be invoked by</span>
+<span class="sd">    :py:meth:`~dolomite_base.read_object.read_object`.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        meta: Metadata for this object.</span>
+<span class="sd">        path:</span>
+<span class="sd">            Path to the directory containing the object.</span>
 
-<span class="sd">        project: Value specifying the project of interest. This is most</span>
-<span class="sd">            typically a string containing a file path to a staging directory</span>
-<span class="sd">            but may also be an application-specific object that works with</span>
-<span class="sd">            :py:meth:`~dolomite_base.acquire_file.acquire_file`.</span>
+<span class="sd">        metadata:</span>
+<span class="sd">            Metadata for the object.</span>
 
-<span class="sd">        kwargs: Further arguments, ignored.</span>
+<span class="sd">        kwargs:</span>
+<span class="sd">            Further arguments, ignored.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A</span>
 <span class="sd">        :py:class:`~summarizedexperiment.SummarizedExperiment.SummarizedExperiment`</span>
 <span class="sd">        with file-backed arrays in the assays.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">se_meta</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;summarized_experiment&quot;</span><span class="p">]</span>
 
-    <span class="n">row_data</span> <span class="o">=</span> <span class="kc">None</span> 
-    <span class="k">if</span> <span class="s2">&quot;row_data&quot;</span> <span class="ow">in</span> <span class="n">se_meta</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">child_meta</span> <span class="o">=</span> <span class="n">acquire_metadata</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">se_meta</span><span class="p">[</span><span class="s2">&quot;row_data&quot;</span><span class="p">][</span><span class="s2">&quot;resource&quot;</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
-            <span class="n">row_data</span> <span class="o">=</span> <span class="n">load_object</span><span class="p">(</span><span class="n">child_meta</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;failed to load row data from &#39;&quot;</span> <span class="o">+</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;$schema&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&#39;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
+    <span class="n">_row_data</span><span class="p">,</span> <span class="n">_column_data</span><span class="p">,</span> <span class="n">_assays</span> <span class="o">=</span> <span class="n">read_common_se_props</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
-    <span class="n">col_data</span> <span class="o">=</span> <span class="kc">None</span> 
-    <span class="k">if</span> <span class="s2">&quot;column_data&quot;</span> <span class="ow">in</span> <span class="n">se_meta</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">child_meta</span> <span class="o">=</span> <span class="n">acquire_metadata</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">se_meta</span><span class="p">[</span><span class="s2">&quot;column_data&quot;</span><span class="p">][</span><span class="s2">&quot;resource&quot;</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
-            <span class="n">col_data</span> <span class="o">=</span> <span class="n">load_object</span><span class="p">(</span><span class="n">child_meta</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;failed to load column data from &#39;&quot;</span> <span class="o">+</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;$schema&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&#39;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">SummarizedExperiment</span><span class="p">(</span>
+        <span class="n">assays</span><span class="o">=</span><span class="n">_assays</span><span class="p">,</span> <span class="n">row_data</span><span class="o">=</span><span class="n">_row_data</span><span class="p">,</span> <span class="n">column_data</span><span class="o">=</span><span class="n">_column_data</span>
+    <span class="p">)</span>
 
-    <span class="n">assays</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">se_meta</span><span class="p">[</span><span class="s2">&quot;assays&quot;</span><span class="p">]:</span>
-        <span class="n">curname</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">child_meta</span> <span class="o">=</span> <span class="n">acquire_metadata</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="s2">&quot;resource&quot;</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
-            <span class="n">assays</span><span class="p">[</span><span class="n">curname</span><span class="p">]</span> <span class="o">=</span> <span class="n">load_object</span><span class="p">(</span><span class="n">child_meta</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;failed to load assay &#39;&quot;</span> <span class="o">+</span> <span class="n">curname</span> <span class="o">+</span> <span class="s2">&quot;&#39; from &#39;&quot;</span> <span class="o">+</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;$schema&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&#39;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
+    <span class="n">_meta_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;other_data&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">_meta_path</span><span class="p">):</span>
+        <span class="n">_meta</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">read_object</span><span class="p">(</span><span class="n">_meta_path</span><span class="p">)</span>
+        <span class="n">se</span> <span class="o">=</span> <span class="n">se</span><span class="o">.</span><span class="n">set_metadata</span><span class="p">(</span><span class="n">_meta</span><span class="o">.</span><span class="n">as_dict</span><span class="p">())</span>
 
-    <span class="n">other_meta</span> <span class="o">=</span> <span class="kc">None</span> 
-    <span class="k">if</span> <span class="s2">&quot;other_data&quot;</span> <span class="ow">in</span> <span class="n">se_meta</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">child_meta</span> <span class="o">=</span> <span class="n">acquire_metadata</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">se_meta</span><span class="p">[</span><span class="s2">&quot;other_data&quot;</span><span class="p">][</span><span class="s2">&quot;resource&quot;</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
-            <span class="n">other_meta</span> <span class="o">=</span> <span class="n">load_object</span><span class="p">(</span><span class="n">child_meta</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;failed to load other metadata from &#39;&quot;</span> <span class="o">+</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;$schema&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&#39;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">SummarizedExperiment</span><span class="p">(</span>
-        <span class="n">assays</span><span class="o">=</span><span class="n">assays</span><span class="p">,</span>
-        <span class="n">row_data</span><span class="o">=</span><span class="n">row_data</span><span class="p">,</span>
-        <span class="n">col_data</span><span class="o">=</span><span class="n">col_data</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="o">=</span><span class="n">other_meta</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">se</span></div>
 
 </pre></div>
         </article>
@@ -300,7 +281,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=1a7223ce"></script>
+</div><script src="../../_static/documentation_options.js?v=edcd63a1"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
