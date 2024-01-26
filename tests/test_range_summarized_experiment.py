@@ -3,9 +3,8 @@ from tempfile import mkdtemp
 
 from biocframe import BiocFrame
 import dolomite_se
-import filebackedarray
 import numpy
-import summarizedexperiment
+from summarizedexperiment import RangedSummarizedExperiment
 from genomicranges import GenomicRanges, GenomicRangesList
 from iranges import IRanges
 from dolomite_base import read_object, save_object
@@ -19,15 +18,15 @@ def test_stage_rse_granges():
         strand=["-", "+", "*"],
         mcols=BiocFrame({"score": [2, 3, 4]}),
     )
-    se = summarizedexperiment.RangedSummarizedExperiment({"counts": x}, row_ranges=rr)
+    se = RangedSummarizedExperiment({"counts": x}, row_ranges=rr)
 
-    dir = os.path.join(mkdtemp(), "se_simple")
+    dir = os.path.join(mkdtemp(), "rse_simple")
     save_object(se, dir)
 
     roundtrip = read_object(dir)
-    assert isinstance(roundtrip, summarizedexperiment.RangedSummarizedExperiment)
+    assert isinstance(roundtrip, RangedSummarizedExperiment)
     ass = roundtrip.assay("counts")
-    assert isinstance(ass, filebackedarray.Hdf5DenseArray)
+    assert ass.shape == (3, 200)
 
 def test_stage_rse_grangeslist():
     # Works with multiple assays.
@@ -49,9 +48,9 @@ def test_stage_rse_grangeslist():
 
     grl = GenomicRangesList(ranges=[a, b], names=["a", "b"])
 
-    se = summarizedexperiment.RangedSummarizedExperiment({"logcounts": x, "counts": x2}, row_ranges=grl)
+    se = RangedSummarizedExperiment({"logcounts": x, "counts": x2}, row_ranges=grl)
 
-    dir = os.path.join(mkdtemp(), "se_simple2")
+    dir = os.path.join(mkdtemp(), "rse_simple2")
     save_object(se, dir)
 
     roundtrip = read_object(dir)

@@ -1,8 +1,6 @@
-import json
 import os
 
 import dolomite_base as dl
-import dolomite_matrix as dlm
 from summarizedexperiment import SummarizedExperiment
 
 from ._utils import _save_common_se_props
@@ -52,7 +50,6 @@ def save_summarized_experiment(
         assay_args = {}
 
     _se_meta = f"{list(x.shape)}"
-
     with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
         handle.write(
             '{ "type": "summarized_experiment", "summarized_experiment": { "version": "1.0", "dimensions": '

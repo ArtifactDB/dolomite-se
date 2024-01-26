@@ -1,13 +1,14 @@
 import os
 
 import dolomite_base as dl
-from _utils import _save_common_se_props
 from summarizedexperiment import RangedSummarizedExperiment
+
+from ._utils import _save_common_se_props
 
 
 @dl.save_object.register
 @dl.validate_saves
-def save_range_summarized_experiment(
+def save_ranged_summarized_experiment(
     x: RangedSummarizedExperiment,
     path: str,
     data_frame_args: dict = None,
@@ -52,7 +53,8 @@ def save_range_summarized_experiment(
 
     with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
         handle.write(
-            '{ "type": "range_summarized_experiment", "summarized_experiment": { "version": "1.0", "dimensions": '
+            '{ "type": "ranged_summarized_experiment", "ranged_summarized_experiment": { "version": "1.0" },'
+            + '"summarized_experiment": {"version": "1.0", "dimensions": '
             + _se_meta
             + " } }"
         )
