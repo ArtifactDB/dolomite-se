@@ -11,13 +11,15 @@
 -->
 
 [![Project generated with PyScaffold](https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold)](https://pyscaffold.org/)
+[![PyPI-Server](https://img.shields.io/pypi/v/dolomite-se.svg)](https://pypi.org/project/dolomite-se/)
+![Unit tests](https://github.com/ArtifactDB/dolomite-se/actions/workflows/pypi-test.yml/badge.svg)
 
 # Save and load SummarizedExperiments in Python
 
 ## Introduction
 
 The **dolomite-se** package is the Python counterpart to the [**alabaster.se**](https://github.com/ArtifactDB/alabaster.se) R package,
-providing methods for saving/reading `SummarizedExperiment` objects within the [**dolomite** framework](https://github.com/ArtifactDB/dolomite-base).
+providing methods for saving/reading `SummarizedExperiment` or `RangeSummarizedExperiment` objects within the [**dolomite** framework](https://github.com/ArtifactDB/dolomite-base).
 All components of the `SummarizedExperiment` - assays, row data and column data - are saved to their respective file representations,
 which can be loaded in a new R/Python environment for cross-language analyses.
 
@@ -36,7 +38,7 @@ se = summarizedexperiment.SummarizedExperiment(
         { "foo": numpy.random.rand(1000) }, 
         row_names = ["gene" + str(i) for i in range(1000)]
     ),
-    col_data=biocframe.BiocFrame(
+    column_data=biocframe.BiocFrame(
         { "whee": numpy.random.rand(200) },
         row_names = ["cell" + str(i) for i in range(200)]
     )
@@ -46,25 +48,25 @@ se = summarizedexperiment.SummarizedExperiment(
 Now we can save it:
 
 ```python
-from dolomite_base import stage_object, write_metadata
+from dolomite_base import save_object
 import dolomite_se
+import os
+from tempfile import mkdtemp
 
-dir = "test"
-meta = stage_object(se, dir, "mydata")
-write_metadata(meta, dir)
-print(meta["path"])
-## mydata/experiment.json
+path = os.path.join(mkdtemp(), "test")
+save_object(se, path)
 ```
 
 And load it again, e,g., in a new session:
 
 ```python
-from dolomite_base import acquire_metadata, load_object
+from dolomite_base import read_object
 
-meta = acquire_metadata("test", "mydata/experiment.json")
-reloaded = load_object(meta, dir)
+roundtrip = read_object(path)
 ## Class SummarizedExperiment with 1000 features and 200 samples
 ##   assays: ['counts']
 ##   row_data: ['foo']
-##   col_data: ['whee']
+##   column_data: ['whee']
 ```
+
+This also works for `RangeSummarizedExperiment` objects storing `row_ranges` to the specified path. 
