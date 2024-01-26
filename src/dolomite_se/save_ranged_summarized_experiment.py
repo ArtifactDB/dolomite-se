@@ -38,8 +38,7 @@ def save_ranged_summarized_experiment(
         kwargs: Further arguments, ignored.
 
     Returns:
-        Metadata that can be edited by calling methods and then saved with
-        :py:meth:`~dolomite_base.write_metadata.write_metadata`.
+        ``x`` is saved to path.
     """
     os.mkdir(path)
 
