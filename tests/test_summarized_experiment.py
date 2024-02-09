@@ -3,7 +3,7 @@ from tempfile import mkdtemp
 
 import biocframe
 import dolomite_se
-import filebackedarray
+import hdf5array
 import numpy
 from dolomite_base import read_object, save_object
 from summarizedexperiment import SummarizedExperiment
