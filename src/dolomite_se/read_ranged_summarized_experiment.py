@@ -41,6 +41,7 @@ def read_ranged_summarized_experiment(
         assays=se.get_assays(),
         row_data=se.get_row_data(),
         column_data=se.get_column_data(),
+        metadata=se.get_metadata(),
     )
 
     _ranges_path = os.path.join(path, "row_ranges")
