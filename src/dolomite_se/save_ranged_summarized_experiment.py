@@ -48,22 +48,18 @@ def save_ranged_summarized_experiment(
     if assay_args is None:
         assay_args = {}
 
-    _se_meta = f"{list(x.shape)}"
-
-    with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
-        handle.write(
-            '{ "type": "ranged_summarized_experiment", "ranged_summarized_experiment": { "version": "1.0" },'
-            + '"summarized_experiment": {"version": "1.0", "dimensions": '
-            + _se_meta
-            + " } }"
-        )
-
     save_common_se_props(
-        x, path, data_frame_args=data_frame_args, assay_args=assay_args
+        x, path, data_frame_args=data_frame_args, assay_args=assay_args, **kwargs
     )
 
+    # save row_ranges
     _ranges = x.get_row_ranges()
     if _ranges is not None:
-        dl.save_object(_ranges, path=os.path.join(path, "row_ranges"))
+        dl.alt_save_object(_ranges, path=os.path.join(path, "row_ranges"), **kwargs)
+
+    # Modify OBJECT
+    _info = dl.read_object_file(path)
+    _info["range_summarized_experiment"] = {"version": "1.0"}
+    dl.save_object_file(path, "range_summarized_experiment", _info)
 
     return

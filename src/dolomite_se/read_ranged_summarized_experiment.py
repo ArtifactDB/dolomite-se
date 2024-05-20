@@ -4,11 +4,9 @@ import dolomite_base as dl
 from dolomite_base.read_object import read_object_registry
 from summarizedexperiment import RangedSummarizedExperiment
 
-from .utils import read_common_se_props
-
-read_object_registry[
-    "ranged_summarized_experiment"
-] = "dolomite_se.read_ranged_summarized_experiment"
+read_object_registry["ranged_summarized_experiment"] = (
+    "dolomite_se.read_ranged_summarized_experiment"
+)
 
 
 def read_ranged_summarized_experiment(
@@ -36,23 +34,23 @@ def read_ranged_summarized_experiment(
         :py:class:`~summarizedexperiment.RangedSummarizedExperiment.RangedSummarizedExperiment`
         with file-backed arrays in the assays.
     """
-
-    _row_data, _column_data, _assays = read_common_se_props(path)
+    metadata["type"] = "summarized_experiment"
+    se = dl.alt_read_object(path, metadata=metadata, **kwargs)
 
     rse = RangedSummarizedExperiment(
-        assays=_assays,
-        row_data=_row_data,
-        column_data=_column_data,
+        assays=se.get_assays(),
+        row_data=se.get_row_data(),
+        column_data=se.get_column_data(),
     )
 
     _meta_path = os.path.join(path, "other_data")
     if os.path.exists(_meta_path):
-        _meta = dl.read_object(_meta_path)
+        _meta = dl.alt_read_object(_meta_path, **kwargs)
         rse = rse.set_metadata(_meta.as_dict())
 
     _ranges_path = os.path.join(path, "row_ranges")
     if os.path.exists(_ranges_path):
-        _ranges = dl.read_object(_ranges_path)
+        _ranges = dl.alt_read_object(_ranges_path, **kwargs)
         rse = rse.set_row_ranges(_ranges)
 
     return rse

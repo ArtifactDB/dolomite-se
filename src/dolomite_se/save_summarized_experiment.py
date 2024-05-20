@@ -48,16 +48,8 @@ def save_summarized_experiment(
     if assay_args is None:
         assay_args = {}
 
-    _se_meta = f"{list(x.shape)}"
-    with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
-        handle.write(
-            '{ "type": "summarized_experiment", "summarized_experiment": { "version": "1.0", "dimensions": '
-            + _se_meta
-            + " } }"
-        )
-
     save_common_se_props(
-        x, path, data_frame_args=data_frame_args, assay_args=assay_args
+        x, path, data_frame_args=data_frame_args, assay_args=assay_args, **kwargs
     )
 
     return
