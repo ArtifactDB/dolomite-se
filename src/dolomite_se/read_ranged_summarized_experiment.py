@@ -43,11 +43,6 @@ def read_ranged_summarized_experiment(
         column_data=se.get_column_data(),
     )
 
-    _meta_path = os.path.join(path, "other_data")
-    if os.path.exists(_meta_path):
-        _meta = dl.alt_read_object(_meta_path, **kwargs)
-        rse = rse.set_metadata(_meta.as_dict())
-
     _ranges_path = os.path.join(path, "row_ranges")
     if os.path.exists(_ranges_path):
         _ranges = dl.alt_read_object(_ranges_path, **kwargs)
