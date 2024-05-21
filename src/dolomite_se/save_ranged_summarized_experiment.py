@@ -3,8 +3,6 @@ import os
 import dolomite_base as dl
 from summarizedexperiment import RangedSummarizedExperiment, SummarizedExperiment
 
-# from .utils import save_common_se_props
-
 
 @dl.save_object.register
 @dl.validate_saves
@@ -35,7 +33,8 @@ def save_ranged_summarized_experiment(
             Further arguments to pass to the ``save_object`` method for the
             assays.
 
-        kwargs: Further arguments, ignored.
+        kwargs:
+            Further arguments.
 
     Returns:
         ``x`` is saved to path.

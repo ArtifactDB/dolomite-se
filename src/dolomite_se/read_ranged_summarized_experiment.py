@@ -27,7 +27,7 @@ def read_ranged_summarized_experiment(
             Metadata for the object.
 
         kwargs:
-            Further arguments, ignored.
+            Further arguments.
 
     Returns:
         A
