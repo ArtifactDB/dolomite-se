@@ -52,6 +52,8 @@ def save_ranged_summarized_experiment(
         assays=x.get_assays(),
         row_data=x.get_row_data(),
         column_data=x.get_column_data(),
+        row_names=x.get_row_names(),
+        column_names=x.get_column_names(),
         metadata=x.get_metadata(),
     )
     dl.alt_save_object(
