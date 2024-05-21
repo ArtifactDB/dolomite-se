@@ -43,7 +43,7 @@ def read_summarized_experiment(
 
     _meta_path = os.path.join(path, "other_data")
     if os.path.exists(_meta_path):
-        _meta = dl.read_object(_meta_path)
+        _meta = dl.alt_read_object(_meta_path, **kwargs)
         se = se.set_metadata(_meta.as_dict())
 
     return se

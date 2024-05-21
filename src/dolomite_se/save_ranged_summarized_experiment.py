@@ -1,9 +1,9 @@
 import os
 
 import dolomite_base as dl
-from summarizedexperiment import RangedSummarizedExperiment
+from summarizedexperiment import RangedSummarizedExperiment, SummarizedExperiment
 
-from .utils import save_common_se_props
+# from .utils import save_common_se_props
 
 
 @dl.save_object.register
@@ -40,7 +40,6 @@ def save_ranged_summarized_experiment(
     Returns:
         ``x`` is saved to path.
     """
-    os.mkdir(path)
 
     if data_frame_args is None:
         data_frame_args = {}
@@ -48,22 +47,25 @@ def save_ranged_summarized_experiment(
     if assay_args is None:
         assay_args = {}
 
-    _se_meta = f"{list(x.shape)}"
-
-    with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
-        handle.write(
-            '{ "type": "ranged_summarized_experiment", "ranged_summarized_experiment": { "version": "1.0" },'
-            + '"summarized_experiment": {"version": "1.0", "dimensions": '
-            + _se_meta
-            + " } }"
-        )
-
-    save_common_se_props(
-        x, path, data_frame_args=data_frame_args, assay_args=assay_args
+    # convert to SE
+    _se = SummarizedExperiment(
+        assays=x.get_assays(),
+        row_data=x.get_row_data(),
+        column_data=x.get_column_data(),
+        metadata=x.get_metadata(),
+    )
+    dl.alt_save_object(
+        _se, path, data_frame_args=data_frame_args, assay_args=assay_args, **kwargs
     )
 
+    # save row_ranges
     _ranges = x.get_row_ranges()
     if _ranges is not None:
-        dl.save_object(_ranges, path=os.path.join(path, "row_ranges"))
+        dl.alt_save_object(_ranges, path=os.path.join(path, "row_ranges"), **kwargs)
+
+    # Modify OBJECT
+    _info = dl.read_object_file(path)
+    _info["ranged_summarized_experiment"] = {"version": "1.0"}
+    dl.save_object_file(path, "ranged_summarized_experiment", _info)
 
     return
