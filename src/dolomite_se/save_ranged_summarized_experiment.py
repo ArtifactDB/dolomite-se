@@ -41,9 +41,15 @@ def save_ranged_summarized_experiment(
         ``x`` is saved to path.
     """
 
-    _dispatcher = dl.save_object.dispatch(SummarizedExperiment)
-    _dispatcher(
-        x, path, data_frame_args=data_frame_args, assay_args=assay_args, *kwargs
+    # convert to SE
+    _se = SummarizedExperiment(
+        assays=x.get_assays(),
+        row_data=x.get_row_data(),
+        column_data=x.get_column_data(),
+        metadata=x.get_metadata(),
+    )
+    dl.alt_save_object(
+        _se, path, data_frame_args=data_frame_args, assay_args=assay_args, **kwargs
     )
 
     # save row_ranges
