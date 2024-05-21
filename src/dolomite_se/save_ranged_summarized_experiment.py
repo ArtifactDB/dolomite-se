@@ -1,9 +1,9 @@
 import os
 
 import dolomite_base as dl
-from summarizedexperiment import RangedSummarizedExperiment
+from summarizedexperiment import RangedSummarizedExperiment, SummarizedExperiment
 
-from .utils import save_common_se_props
+# from .utils import save_common_se_props
 
 
 @dl.save_object.register
@@ -40,16 +40,10 @@ def save_ranged_summarized_experiment(
     Returns:
         ``x`` is saved to path.
     """
-    os.mkdir(path)
 
-    if data_frame_args is None:
-        data_frame_args = {}
-
-    if assay_args is None:
-        assay_args = {}
-
-    save_common_se_props(
-        x, path, data_frame_args=data_frame_args, assay_args=assay_args, **kwargs
+    _dispatcher = dl.save_object.dispatch(SummarizedExperiment)
+    _dispatcher(
+        x, path, data_frame_args=data_frame_args, assay_args=assay_args, *kwargs
     )
 
     # save row_ranges
@@ -59,7 +53,7 @@ def save_ranged_summarized_experiment(
 
     # Modify OBJECT
     _info = dl.read_object_file(path)
-    _info["range_summarized_experiment"] = {"version": "1.0"}
-    dl.save_object_file(path, "range_summarized_experiment", _info)
+    _info["ranged_summarized_experiment"] = {"version": "1.0"}
+    dl.save_object_file(path, "ranged_summarized_experiment", _info)
 
     return
