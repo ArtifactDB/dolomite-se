@@ -27,7 +27,7 @@ def read_summarized_experiment(
             Metadata for the object.
 
         kwargs:
-            Further arguments, ignored.
+            Further arguments.
 
     Returns:
         A
@@ -35,7 +35,7 @@ def read_summarized_experiment(
         with file-backed arrays in the assays.
     """
 
-    _row_data, _column_data, _assays = read_common_se_props(path)
+    _row_data, _column_data, _assays = read_common_se_props(path, **kwargs)
 
     se = SummarizedExperiment(
         assays=_assays, row_data=_row_data, column_data=_column_data
