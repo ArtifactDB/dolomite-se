@@ -41,6 +41,12 @@ def save_ranged_summarized_experiment(
         ``x`` is saved to path.
     """
 
+    if data_frame_args is None:
+        data_frame_args = {}
+
+    if assay_args is None:
+        assay_args = {}
+
     # convert to SE
     _se = SummarizedExperiment(
         assays=x.get_assays(),
