@@ -42,7 +42,7 @@ def save_common_se_props(x, path, data_frame_args, assay_args, **kwargs):
             _assay_save_path = os.path.join(_assays_path, str(_aidx))
             try:
                 dl.alt_save_object(
-                    x.assays[_aname], path=_assay_save_path, **assay_args
+                    x.assays[_aname], path=_assay_save_path, **assay_args, **kwargs
                 )
             except Exception as ex:
                 raise RuntimeError(
